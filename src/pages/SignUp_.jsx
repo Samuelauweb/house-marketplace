@@ -34,33 +34,27 @@ function SignUp() {
     try {
       const auth = getAuth()
 
-      // Registering the user
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       )
 
-      // Get the actual user info
       const user = userCredential.user
 
       updateProfile(auth.currentUser, {
         displayName: name,
       })
 
-      // Copy everything from 'formData'
       const formDataCopy = { ...formData }
-      // Delete the password
       delete formDataCopy.password
-      // Add timestamp property
       formDataCopy.timestamp = serverTimestamp()
 
-      // Update the database with user to 'users' collection
       await setDoc(doc(db, 'users', user.uid), formDataCopy)
 
       navigate('/')
     } catch (error) {
-      console.log(error)
+      console.error('Something went wrong with registration')
     }
   }
 
@@ -119,7 +113,7 @@ function SignUp() {
           </div>
         </form>
 
-        {/* Google OAuth */}
+        {/* <OAuth /> */}
 
         <Link to='/sign-in' className='registerLink'>
           Sign In Instead
