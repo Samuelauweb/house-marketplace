@@ -115,7 +115,6 @@ function CreateListing() {
       // if not using geolocation API
       geolocation.lat = latitude
       geolocation.lng = longitude
-      location = address
       // console.log('geolocation: ', geolocation)
       // console.log('location: ', location)
     }
@@ -182,9 +181,9 @@ function CreateListing() {
     }
 
     // To clean up
+    formDataCopy.location = address
     delete formDataCopy.images
     delete formDataCopy.address // because we got the formatted_address above
-    location && (formDataCopy.location = location)
     !formDataCopy.offer && delete formDataCopy.discountedPrice
 
     const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
