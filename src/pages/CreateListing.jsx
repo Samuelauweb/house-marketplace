@@ -6,6 +6,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { useNavigate } from 'react-router-dom'
 import Spinner from '../components/Spinner'
@@ -111,6 +112,7 @@ function CreateListing() {
         return
       }
     } else {
+      // if not using geolocation API
       geolocation.lat = latitude
       geolocation.lng = longitude
       location = address
@@ -170,9 +172,25 @@ function CreateListing() {
       return
     })
 
-    console.log(imgUrls)
+    // console.log(imgUrls)
 
+    const formDataCopy = {
+      ...formData,
+      imgUrls,
+      geolocation,
+      timestamp: serverTimestamp(),
+    }
+
+    // To clean up
+    delete formDataCopy.images
+    delete formDataCopy.address // because we got the formatted_address above
+    location && (formDataCopy.location = location)
+    !formDataCopy.offer && delete formDataCopy.discountedPrice
+
+    const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
     setLoading(false)
+    toast.success('Listing saved')
+    navigate(`/category/${formDataCopy.type}/${docRef.id}`)
   }
 
   const onMutate = (e) => {
