@@ -1,6 +1,6 @@
-# React-Firebase House MarketPlace App
+# React-Firebase House Marketplace App
 
-House MaretPlace (mobile-first) application built with React and Firebase 9. This is a project from Brad Traversy [React Front To Back](https://www.udemy.com/course/react-front-to-back-2022/?referralCode=4A622C7E48DB66154114) course.
+House Marketplace (mobile-first) application built with React and Firebase 9. This is a project from Brad Traversy [React Front To Back](https://www.udemy.com/course/react-front-to-back-2022/?referralCode=4A622C7E48DB66154114) course.
 
 ## Usage
 
