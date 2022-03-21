@@ -1,7 +1,6 @@
 // Similiar structure and logic from Category.jsx
 
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import {
   collection,
   getDocs,
@@ -20,8 +19,6 @@ function Offers() {
   const [listings, setListings] = useState(null)
   const [loading, setLoading] = useState(true)
   const [lastFetchedListing, setLastFetchedListing] = useState(null)
-
-  const params = useParams()
 
   useEffect(() => {
     // We use async here but not above because useEffect does not allow it
@@ -106,9 +103,6 @@ function Offers() {
     <div className='category'>
       <header>
         <p className='pageHeader'>
-          {/* {params.categoryName === 'rent'
-            ? 'Places for rent'
-            : 'Places for sale'} */}
           Offers
         </p>
       </header>
